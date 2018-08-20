@@ -1,5 +1,8 @@
 # wipe_done
 
+这是一个使用 Flutter 和 Dart 语言编写的任务清单应用。
+
+
 使用 Fluter 框架编写的 android 应用与 java 编写的应用相比之下，有以下几点好处：
 
 - 创建的 FLutter 应用基于 Material Design 风格的 Widget，其界面与原生安卓非常接近。
