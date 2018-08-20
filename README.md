@@ -1,8 +1,23 @@
 # wipe_done
 
-A new Flutter project.
+使用 Fluter 框架编写的 android 应用与 java 编写的应用相比之下，有以下几点好处：
 
-## Getting Started
+- 创建的 FLutter 应用基于 Material Design 风格的 Widget，其界面与原生安卓非常接近。
+- 响应速度快，切换整个应用的主题是，用户几乎察觉不到响应主题变化的延迟。
+- 比较适合响应式设计
+- 尽管这里只有安卓应用的 apk， 其实 Flutter还可以用同一套源码生成 ios 应用和 Web 应用，可以说是非常便捷的。
+> 主要是因为我买不起苹果手机:-(
 
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+
+不足之处：
+
+- 完全是出于兴趣做的 App ，不值得用来赚收益
+- 之后要开始秋招找工作，也很难有时间接着更新
+- 目前 Flutter 还没有正式版（开发过程使用的还是预览版 Flutter），开源的工具包也不是特别完善
+- 比较锻炼自己的动手能力，自己也可以学着造轮子
+
+
+
+# 欢迎一起交流学习 
+## 我的邮箱：wenmq47@gmail.com
+
