@@ -9,12 +9,17 @@ import 'package:wipe_done/todo/Todo.dart';
 import 'package:wipe_done/todo/TodoList.dart';
 import 'package:wipe_done/todo/TodoListStorage.dart';
 
+/// Theme index for instance theme change
 int themeIndex = 0;
 
+/// Main App called by main => runApp()
 class ThisApp extends StatefulWidget {
+  // Restart this app to update
   static restartApp(BuildContext context) {
+    // Declare a state
     final _ThisAppState state =
         context.ancestorStateOfType(const TypeMatcher<_ThisAppState>());
+
     state.restartApp();
   }
 
@@ -23,8 +28,10 @@ class ThisApp extends StatefulWidget {
 }
 
 class _ThisAppState extends State<ThisApp> {
+  /// Binding [ThisApp] to restart app by key
   Key key = new UniqueKey();
 
+  /// Assign a new key
   void restartApp() {
     this.setState(() {
       key = new UniqueKey();
@@ -34,6 +41,7 @@ class _ThisAppState extends State<ThisApp> {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+      /// Binding this MaterialApp with unique key
       key: key,
       title: '任务清单',
       home: new MyHomePage(
@@ -44,9 +52,11 @@ class _ThisAppState extends State<ThisApp> {
   }
 }
 
+/// Build the home page
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, @required this.storage}) : super(key: key);
 
+  /// Storage service
   final TodoListStorage storage;
 
   @override
@@ -56,6 +66,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   TodoList _todoList;
 
+  //  Update app theme
   _loadTheme() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -63,7 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  //Incrementing counter after click
+  // Change the [themeIndex]
+
   void setTheme(int newTheme) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     themeIndex = newTheme;
@@ -82,6 +94,8 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  // Create a new task with [title]
+
   Future<File> _addTodo([String title]) async {
     setState(() {
       if (title == "") title = "未命名任务";
@@ -91,6 +105,8 @@ class _MyHomePageState extends State<MyHomePage> {
     return widget.storage.writeTodoList(_todoList);
   }
 
+  // Delete a task in list by index
+
   Future<File> _deleteTodo(int index) async {
     setState(() {
       _todoList.todoList.removeAt(index);
@@ -98,6 +114,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return widget.storage.writeTodoList(_todoList);
   }
+
+  // Change [done] state of task
 
   Future<File> _changeTodoDone(int index) async {
     setState(() {
@@ -107,6 +125,8 @@ class _MyHomePageState extends State<MyHomePage> {
     return widget.storage.writeTodoList(_todoList);
   }
 
+  // Change [star] state of task
+
   Future<File> _changeTodoStar(int index) async {
     setState(() {
       _todoList.todoList[index].star = !_todoList.todoList[index].star;
@@ -115,10 +135,13 @@ class _MyHomePageState extends State<MyHomePage> {
     return widget.storage.writeTodoList(_todoList);
   }
 
+  // Push out a Dialog window to create a new task
+
   void _showNewTodoDialog() {
     showDialog(
       context: context,
       builder: (context) {
+        // TextEditingController => TextField
         var textController = new TextEditingController(
           text: "",
         );
@@ -131,7 +154,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
                   child: new TextField(
                     onSubmitted: (text) {
+                      // create a new task
                       _addTodo(text);
+                      // back to the main page
                       Navigator.pop(context);
                     },
                     maxLength: 20,
@@ -169,6 +194,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  // Push out a Dialog window to change app theme
+
   void _changeThemeIndex() {
     showDialog(
       context: context,
@@ -191,6 +218,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 child: new CircleAvatar(
                   backgroundColor: themeData.primaryColor,
+                  // if selected show done;
+                  // if not selected show transparent.
                   child: themeList.indexOf(themeData) == themeIndex
                       ? Icon(
                           Icons.done,
@@ -231,9 +260,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
 //      backgroundColor: Colors.white,
       body: new Padding(
-//        padding: EdgeInsets.fromLTRB(8.0, 23.0, 8.0, 25.0),
         padding: EdgeInsets.all(8.0),
         child: new ListView.builder(
+          // if null ,set [itemCount] as 0
           itemCount: _todoList != null ? _todoList.todoList.length : 0,
           itemBuilder: (context, pageIndex) {
             int index = pageIndex;
@@ -257,6 +286,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   child: new ListTile(
                     onTap: () {
+                      // Navigate to [TodoPage]
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -272,12 +302,16 @@ class _MyHomePageState extends State<MyHomePage> {
                       _todoList.todoList[index].title,
                       style: TextStyle(
                           fontSize: 18.0,
+                          // if done, lineThrough decoration
+                          // if not done, no decoration
                           decoration: _todoList.todoList[index].done
                               ? TextDecoration.lineThrough
                               : TextDecoration.none),
                     ),
                     leading: new IconButton(
                       icon: Icon(
+                        // if done, radio checked
+                        // if not done, radio unchecked
                         _todoList.todoList[index].done
                             ? Icons.radio_button_checked
                             : Icons.radio_button_unchecked,
