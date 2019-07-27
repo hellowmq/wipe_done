@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
-import 'package:wipe_done/todo/Todo.dart';
+import 'package:wipe_done_new/todo/Todo.dart';
 
 class TodoPage extends StatefulWidget {
   final Todo todo;
@@ -37,13 +37,7 @@ class _TodoPageState extends State<TodoPage> {
             onPressed: () {
               setState(() {
                 Share.share('任务：${widget.todo.title}'
-                    '${
-                    widget.todo.remark == ''
-                        ?
-                    ('\n' + widget.todo.remark)
-                        :
-                    ''
-                }');
+                    '${widget.todo.remark == '' ? ('\n' + widget.todo.remark) : ''}');
               });
             },
           ),

@@ -3,11 +3,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wipe_done/page/TodoPage.dart';
-import 'package:wipe_done/theme.dart';
-import 'package:wipe_done/todo/Todo.dart';
-import 'package:wipe_done/todo/TodoList.dart';
-import 'package:wipe_done/todo/TodoListStorage.dart';
+import 'package:wipe_done_new/page/TodoPage.dart';
+import 'package:wipe_done_new/theme.dart';
+import 'package:wipe_done_new/todo/Todo.dart';
+import 'package:wipe_done_new/todo/TodoList.dart';
+import 'package:wipe_done_new/todo/TodoListStorage.dart';
 
 /// Theme index for instance theme change
 int themeIndex = 0;
@@ -291,8 +291,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => TodoPage(
-                                todo: _todoList.todoList[index],
-                              ),
+                            todo: _todoList.todoList[index],
+                          ),
                         ),
                       );
 
